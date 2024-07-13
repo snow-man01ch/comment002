@@ -2,39 +2,32 @@ import React, { useState, useContext } from 'react';
 import { CommentContext } from './CommentContext';
 
 const CommentForm = () => {
-    const [username, setUsername] = useState('');
     const [comment, setComment] = useState('');
-
-    const { addComment } = useContext(CommentContext);
+    const { user, addComment } = useContext(CommentContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (username.trim() !== '' && comment.trim() !== '') {
-            addComment(username, comment);
-            setUsername('');
+        if (comment.trim() !== '') {
+            addComment(comment);
             setComment('');
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-1/3 py-4">
-            <input
-                type="text"
-                placeholder="Your Name"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="block w-full p-2 border border-gray-300 rounded-md"
-                required
-            />
+        <form onSubmit={handleSubmit} className="w-full py-4">
             <textarea
                 placeholder="Your Comment"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className="block w-full p-2 mt-2 border border-gray-300 rounded-md"
+                className="block w-full p-2 mb-2 border border-gray-300 rounded-md "
                 rows="3"
                 required
+                aria-label="Comment"
             ></textarea>
-            <button type="submit" className="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-md">
+            <button
+                type="submit"
+                className="w-[200px] bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md max-w-md mx-auto"
+            >
                 Add Comment
             </button>
         </form>
